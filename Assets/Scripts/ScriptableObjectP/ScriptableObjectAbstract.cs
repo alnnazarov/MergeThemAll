@@ -1,6 +1,8 @@
 using UnityEngine;
 
-public abstract class ScriptableObjectAbstract : ScriptableObject
+namespace ScriptableObjectP
 {
-    
+    public abstract class ScriptableObjectAbstract : ScriptableObject
+    {
+    }
 }

@@ -143,3 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2d480c500351aa4bbbf2014766bf7bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  patrolRadiusX: 5
+  patrolRadiusY: 4
+  moveSpeed: 2
+  spawnPointSO: {fileID: 11400000, guid: 9aa3166664b015e4d97c050404a1b664, type: 2}
