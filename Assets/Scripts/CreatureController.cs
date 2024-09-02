@@ -3,15 +3,32 @@ using Interfaces;
 using ScriptableObjectP;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerController))]
 public class CreatureController : MonoBehaviour, ISpawnDependent
 {
-    public float moveSpeed = 2f;
-
+    [SerializeField] private bool isPatrolling = true;
+    [SerializeField] private float moveSpeed = 2f;
     [SerializeField] private TransformScriptableObject spawnPointSO;
 
     private void Start()
     {
-        StartCoroutine(PatrolCoroutine());
+        if (isPatrolling)
+        {
+            StartCoroutine(PatrolCoroutine());
+        }
+    }
+
+    private void Update()
+    {
+        if (!isPatrolling)
+        {
+            StopCoroutine(PatrolCoroutine());
+        }
+    }
+
+    public void DisablePatrol()
+    {
+        isPatrolling = false;
     }
 
     public Transform GetSpawnTransform()

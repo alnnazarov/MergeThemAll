@@ -24,6 +24,8 @@ public class SpawnerController : MonoBehaviour, ISpawnDependent
             return;
         }
 
+        GameObject firstCreatedCreature = null;
+
         for (int i = 0; i < number / 2; i++)
         {
             GameObject creaturePrefab = creaturesList[i];
@@ -31,8 +33,28 @@ public class SpawnerController : MonoBehaviour, ISpawnDependent
             Vector3 randomPositionOne = ((ISpawnDependent)this).GetRandomPositionNearSpawnPoint();
             Vector3 randomPositionTwo = ((ISpawnDependent)this).GetRandomPositionNearSpawnPoint();
 
-            Instantiate(creaturePrefab, randomPositionOne, Quaternion.identity);
+            if (i == 0)
+            {
+                firstCreatedCreature = Instantiate(creaturePrefab, randomPositionOne, Quaternion.identity);
+            }
+            else
+            {
+                Instantiate(creaturePrefab, randomPositionOne, Quaternion.identity);
+            }
+
             Instantiate(creaturePrefab, randomPositionTwo, Quaternion.identity);
+        }
+
+        if (firstCreatedCreature != null)
+        {
+            PlayerController playerController = firstCreatedCreature.GetComponent<PlayerController>();
+            CreatureController creatureController = firstCreatedCreature.GetComponent<CreatureController>();
+
+            if (playerController != null && creatureController != null)
+            {
+                playerController.EnableMoving();
+                creatureController.DisablePatrol();
+            }
         }
     }
 
